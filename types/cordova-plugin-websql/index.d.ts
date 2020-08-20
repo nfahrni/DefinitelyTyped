@@ -44,7 +44,20 @@ interface Database {
     name: string;
     version: string;
     displayName: string;
-    size: number;
+    size: number;    
+     /**
+       * Starts new transaction.
+       * @param oldVersion          The old Db version
+       * @param newVersion          The new Db version
+       * @param transactionCallback The callback which provides a transaction to perform the migration
+       * @param errorCallback       Called, when Transaction fails.
+       * @param successCallback     Called, when transaction committed.
+       */
+    changeVersion(oldVersion: string,
+        newVersion: string,
+        transactionCallback?: (transaction: SqlTransaction) => void,
+        errorCallback?: (error: SqlError) => void,
+        successCallback?: () => void): void;
 }
 
 declare var Database: {
